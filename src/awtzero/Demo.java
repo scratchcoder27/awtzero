@@ -1,5 +1,6 @@
 package awtzero;
 
+import awtzero.prefab.Button;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -10,26 +11,43 @@ public class Demo {
     public static Screen screen; //define the Screen to be used for drawing
     public static Rect player_rect = new Rect(0, 0, 0, 0); // defines the player rect
     public static Font gamefont = new Font(Font.MONOSPACED, Font.BOLD, 30);
+    public static ExitButton exitButton = new ExitButton(); // Create an instance of ExitButton
+
+    static class ExitButton extends Button { //Can keep this in a separate file if wanted
+        public ExitButton() {
+            super(570, 500, 200, 50, "Exit"); // Position and size
+            this.setBorderWidth(3);
+            this.setFont(gamefont, 30);
+        }
+
+        @Override
+        public void interactOnce() { // Use interactOnce to avoid multiple triggers, interact if continuous input is needed
+            System.exit(0); //Close the window
+        }
+    }
     
     private static void draw(Graphics g) { //the method handling drawing
     	
-        screen.clear_screen(g);
+        screen.clearScreen(g);
+
+        exitButton.draw(screen, g); // Draw the exit button
         
-        screen.draw_text(g, "AWTZero - DEMO", 250, 100, Color.WHITE, gamefont);
-    	screen.draw_text(g, "Move with Arrow Keys", 200, 300, Color.WHITE, gamefont);
-    	screen.draw_text(g, "Click to move towards mouse", 130, 400, Color.WHITE, gamefont);
+        screen.drawText(g, "AWTZero - DEMO", 250, 100, Color.WHITE, gamefont);
+    	screen.drawText(g, "Move with Arrow Keys", 200, 300, Color.WHITE, gamefont);
+    	screen.drawText(g, "Click to move towards mouse", 130, 400, Color.WHITE, gamefont);
     	
     	
-        screen.draw_filled_rect(g, player_rect, Color.GREEN);
+        screen.drawFilledRect(g, player_rect, Color.GREEN);
         
-        screen.draw_circle(g, Mouse.getMousePos(), 5, Color.WHITE);
+        screen.drawCircle(g, Mouse.getMousePos(), 5, Color.WHITE);
     }
     
     private static void update() {
     	 // the method handling the interactivity and screen updates
     	
-    	boolean mouse = (Mouse.getMouseButton() == 1);
-    	Point pos = Mouse.getMousePos();
+    	boolean mouse = (Mouse.getMouseButton() == 1); // true if left mouse button is pressed
+
+    	Point pos = Mouse.getMousePos(); //get mouse position
     	
     	if (!mouse) {
     		if (keyboard.isKeyDown(Key.LEFT)) player_rect.x -= 4;  //player_rect.x is player x position
@@ -40,6 +58,9 @@ public class Demo {
     		player_rect.x = (int) player_rect.x - ((player_rect.x - pos.x) / 10);
     		player_rect.y = (int) player_rect.y - ((player_rect.y - pos.y) / 10);
     	}
+
+        window.setTitle("Demo - FPS: " + window.roundDecimalPlaces(window.getFPS(), 2));
+        exitButton.update(pos.x, pos.y, mouse);
     }
 
     public static void main(String[] args) {

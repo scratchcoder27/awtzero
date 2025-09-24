@@ -8,7 +8,11 @@ public enum Key {
     RIGHT(KeyEvent.VK_RIGHT),
     UP(KeyEvent.VK_UP),
     DOWN(KeyEvent.VK_DOWN),
-    
+
+    SPACE(KeyEvent.VK_SPACE),
+    BACKSPACE(KeyEvent.VK_BACK_SPACE),
+    TAB(KeyEvent.VK_TAB),
+
     ESCAPE(KeyEvent.VK_ESCAPE),
     FUNCTION1(KeyEvent.VK_F1),
     FUNCTION2(KeyEvent.VK_F2),

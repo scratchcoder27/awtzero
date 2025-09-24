@@ -14,6 +14,8 @@ public class Window {
 	
     private Consumer<Graphics> onDraw;
     private Runnable onUpdate;
+
+    private double fps = 0;  // latest calculated FPS
 	
     public Window(String window_name, int WIDTH, int HEIGHT, boolean resizable)
     {
@@ -59,7 +61,21 @@ public class Window {
 
         });
     }
+
     
+    public double getFPS() {
+        return fps;
+    }
+
+    public int getFPSasInt() {
+        return (int) fps;
+    }
+    
+    public double roundDecimalPlaces(double d, int n) {
+        double temp = Math.pow(10, n);
+    	return Math.round(d * temp) / temp;
+    }
+
     public void setOnDraw(Consumer<Graphics> onDraw) {
         this.onDraw = onDraw;
     }
@@ -102,6 +118,10 @@ public class Window {
     public void setIcon(String path) {
     	frame.setIconImage(ImageWrapper.loadImage(null, path));
     }
+
+    public void setTitle(String title) {
+    	frame.setTitle(title);
+    }
     
     public void hideCursor() {
     	Mouse.hideCursor(screen);
@@ -113,9 +133,21 @@ public class Window {
     
     public void startGameLoop() {
         new Thread(() -> {
+
+            long lastTime = System.nanoTime();
+
             while (running) {
+
                 update();
                 draw();
+
+                long now = System.nanoTime();
+                double instantaneousFps = 1_000_000_000.0 / (now - lastTime);
+                lastTime = now;
+
+                this.fps = instantaneousFps;
+
+
                 try {
                     Thread.sleep(1000 / FPS);
                 } catch (InterruptedException e) {

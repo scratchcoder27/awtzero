@@ -79,7 +79,7 @@ public class Screen extends Canvas {
     	g.drawImage(img.image, p.x, p.y, img.width, img.height, img.observer);
     }
     
-    public void draw_line(Graphics g, int startx, int starty, int endx, int endy, Color color) {
+    public void drawLine(Graphics g, int startx, int starty, int endx, int endy, Color color) {
     	Color orgcolor = g.getColor();
     	g.setColor(color);
     	g.drawLine(startx, starty, endx, endy);
@@ -87,42 +87,56 @@ public class Screen extends Canvas {
     	
     }
     
-    public void draw_line(Graphics g, Point start, Point end, Color color) {
+    public void drawLine(Graphics g, Point start, Point end, Color color) {
     	Color orgcolor = g.getColor();
     	g.setColor(color);
     	g.drawLine(start.x, start.y, end.x, end.y);
     	g.setColor(orgcolor);
     }
     
-    public void draw_circle(Graphics g, Point pos, int radius, Color color) {
+    public void drawCircle(Graphics g, Point pos, int radius, Color color) {
     	Color orgcolor = g.getColor();
     	g.setColor(color);
     	g.drawOval(pos.x - radius, pos.y - radius, radius * 2, radius * 2);
     	g.setColor(orgcolor);
     }
     
-    public void draw_filled_circle(Graphics g, Point pos, int radius, Color color) {
+    public void drawFilledCircle(Graphics g, Point pos, int radius, Color color) {
     	Color orgcolor = g.getColor();
     	g.setColor(color);
     	g.fillOval(pos.x - radius, pos.y - radius, radius * 2, radius * 2);
     	g.setColor(orgcolor);
     }
     
-    public void draw_rect(Graphics g, Rect rect, Color color) {
+    public void drawRect(Graphics g, Rect rect, Color color) {
     	Color orgcolor = g.getColor();
     	g.setColor(color);
     	g.drawRect(rect.x, rect.y, rect.width, rect.height);
     	g.setColor(orgcolor);
     }
     
-    public void draw_filled_rect(Graphics g, Rect rect, Color color) {
+    public void drawFilledRect(Graphics g, Rect rect, Color color) {
     	Color orgcolor = g.getColor();
     	g.setColor(color);
     	g.fillRect(rect.x, rect.y, rect.width, rect.height);
     	g.setColor(orgcolor);
     }
+
+    public void drawRoundedect(Graphics g, Rect rect, Color color, int arcWidth, int arcHeight) {
+    	Color orgcolor = g.getColor();
+    	g.setColor(color);
+    	g.drawRoundRect(rect.x, rect.y, rect.width, rect.height, arcWidth, arcHeight);
+    	g.setColor(orgcolor);
+    }
     
-    public void draw_text(Graphics g, String s, Point p, Color color, Font font) {
+    public void drawFilledRoundedRect(Graphics g, Rect rect, Color color, int arcWidth, int arcHeight) {
+    	Color orgcolor = g.getColor();
+    	g.setColor(color);
+    	g.fillRoundRect(rect.x, rect.y, rect.width, rect.height, arcWidth, arcHeight);
+    	g.setColor(orgcolor);
+    }
+
+    public void drawText(Graphics g, String s, Point p, Color color, Font font) {
     	Color orgcolor = g.getColor();
     	Font orgfont = g.getFont();
     	
@@ -136,7 +150,7 @@ public class Screen extends Canvas {
     	g.setFont(orgfont);
     }
     
-    public void draw_text(Graphics g, String s, Point p) {
+    public void drawText(Graphics g, String s, Point p) {
     	Color orgcolor = g.getColor();
     	Font orgfont = g.getFont();
     	
@@ -146,7 +160,7 @@ public class Screen extends Canvas {
     	g.setFont(orgfont);
     }
     
-    public void draw_text(Graphics g, String s, int x, int y, Color color, Font font) {
+    public void drawText(Graphics g, String s, int x, int y, Color color, Font font) {
     	Color orgcolor = g.getColor();
     	Font orgfont = g.getFont();
     	
@@ -160,7 +174,7 @@ public class Screen extends Canvas {
     	g.setFont(orgfont);
     }
     
-    public void draw_text(Graphics g, String s, int x, int y) {
+    public void drawText(Graphics g, String s, int x, int y) {
     	Color orgcolor = g.getColor();
     	Font orgfont = g.getFont();
     	
@@ -168,14 +182,6 @@ public class Screen extends Canvas {
         
     	g.setColor(orgcolor);
     	g.setFont(orgfont);
-    }
-    
-    public void clear_screen(Graphics g) {
-    	this.draw_filled_rect(g, this.getScreenRect(), Color.BLACK);
-    }
-    
-    public void draw_textbox(Graphics g) throws Exception {
-    	throw new Exception("Not Implemented");
     }
     
     public Rect getScreenRect() {
