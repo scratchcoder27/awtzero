@@ -3,17 +3,17 @@ package awtzero;
 import awtzero.prefab.Button;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
+// import java.awt.Graphics;
 
 public class Demo {
-    public static Window window; //Make a static Window
-    public static Keyboard keyboard; //a static Keyboard
-    public static Screen screen; //define the Screen to be used for drawing
+    public static Window window; // Make a static Window
+    public static Keyboard keyboard; // a static Keyboard
+    public static Screen screen; // define the Screen to be used for drawing
     public static Rect player_rect = new Rect(0, 0, 0, 0); // defines the player rect
     public static Font gamefont = new Font(Font.MONOSPACED, Font.BOLD, 30);
     public static ExitButton exitButton = new ExitButton(); // Create an instance of ExitButton
 
-    static class ExitButton extends Button { //Can keep this in a separate file if wanted
+    static class ExitButton extends Button { // Can keep this in a separate file if wanted
         public ExitButton() {
             super(570, 500, 200, 50, "Exit"); // Position and size
             this.setBorderWidth(3);
@@ -21,76 +21,84 @@ public class Demo {
         }
 
         @Override
-        public void interactOnce() { // Use interactOnce to avoid multiple triggers, interact if continuous input is needed
-            System.exit(0); //Close the window
+        public void interactOnce() { // Use interactOnce to avoid multiple triggers, interact if continuous input is
+                                     // needed
+            System.exit(0); // Close the window
         }
     }
-    
-    private static void draw(Graphics g) { //the method handling drawing
-    	
-        screen.clearScreen(g);
+
+    private static void draw(RenderInstance g) { // the method handling drawing
+
+        g.clearScreen(screen);
 
         exitButton.draw(screen, g); // Draw the exit button
-        
-        screen.drawText(g, "AWTZero - DEMO", 250, 100, Color.WHITE, gamefont);
-    	screen.drawText(g, "Move with Arrow Keys", 200, 300, Color.WHITE, gamefont);
-    	screen.drawText(g, "Click to move towards mouse", 130, 400, Color.WHITE, gamefont);
-    	
-    	
-        screen.drawFilledRect(g, player_rect, Color.GREEN);
-        
-        screen.drawCircle(g, Mouse.getMousePos(), 5, Color.WHITE);
-    }
-    
-    private static void update() {
-    	 // the method handling the interactivity and screen updates
-    	
-    	boolean mouse = (Mouse.getMouseButton() == 1); // true if left mouse button is pressed
 
-    	Point pos = Mouse.getMousePos(); //get mouse position
-    	
-    	if (!mouse) {
-    		if (keyboard.isKeyDown(Key.LEFT)) player_rect.x -= 4;  //player_rect.x is player x position
-            if (keyboard.isKeyDown(Key.RIGHT)) player_rect.x += 4; //player_rect.y is player y position
-            if (keyboard.isKeyDown(Key.UP)) player_rect.y -= 4;
-            if (keyboard.isKeyDown(Key.DOWN)) player_rect.y += 4;
-    	} else {
-    		player_rect.x = (int) player_rect.x - ((player_rect.x - pos.x) / 10);
-    		player_rect.y = (int) player_rect.y - ((player_rect.y - pos.y) / 10);
-    	}
+        g.drawText("AWTZero - DEMO", 250, 100, Color.WHITE, gamefont);
+        g.drawText("Move with Arrow Keys", 200, 300, Color.WHITE, gamefont);
+        g.drawText("Click to move towards mouse", 130, 400, Color.WHITE, gamefont);
+
+        g.drawFilledRect(player_rect, Color.GREEN);
+
+        g.drawCircle(Mouse.getMousePos(), 5, Color.WHITE);
+    }
+
+    private static void update() {
+        // the method handling the interactivity and screen updates
+
+        boolean mouse = (Mouse.getMouseButton() == 1); // true if left mouse button is pressed
+
+        Point pos = Mouse.getMousePos(); // get mouse position
+
+        if (!mouse) {
+            if (keyboard.isKeyDown(Key.LEFT))
+                player_rect.x -= 4; // player_rect.x is player x position
+            if (keyboard.isKeyDown(Key.RIGHT))
+                player_rect.x += 4; // player_rect.y is player y position
+            if (keyboard.isKeyDown(Key.UP))
+                player_rect.y -= 4;
+            if (keyboard.isKeyDown(Key.DOWN))
+                player_rect.y += 4;
+        } else {
+            player_rect.x = (int) player_rect.x - ((player_rect.x - pos.x) / 10); // glide to mouse position
+            player_rect.y = (int) player_rect.y - ((player_rect.y - pos.y) / 10);
+        }
 
         window.setTitle("Demo - FPS: " + window.roundDecimalPlaces(window.getFPS(), 2));
         exitButton.update(pos.x, pos.y, mouse);
     }
 
     public static void main(String[] args) {
-    	// make a Window object with title "Keyboard Demo"
-    	// and width and height of 800 and 600 respectively
+        // make a Window object with title "Keyboard Demo"
+        // and width and height of 800 and 600 respectively
         window = new Window("Demo", 800, 600, false);
         screen = window.screen; // sets the screen
-        
-        //sets the target FPS, 30 or 60 in most cases
+
+        // sets the target FPS, 30 or 60 in most cases
         window.setTargetFPS(60);
 
-        //Makes a Keyboard object and sets it to the window keyhandler
+        // Makes a Keyboard object and sets it to the window keyhandler
         keyboard = new Keyboard();
         window.setKeyboard(keyboard);
-        
-        //sets up the mouse
-        //NOTE: Mouse methods are static and a Mouse class does not need to be made
+
+        // sets up the mouse
+        // NOTE: Mouse methods are static and a Mouse class does not need to be made
         window.setupMouse();
 
-        //sets update and draw to be called by the window on each tick
-        window.setOnUpdate(() -> {update();});
-        window.setOnDraw(g -> {draw(g);});
-        
-        //hides the cursor
+        // sets update and draw to be called by the window on each tick
+        window.setOnUpdate(() -> {
+            update();
+        });
+        window.setOnDraw(g -> {
+            draw(g);
+        });
+
+        // hides the cursor
         window.hideCursor();
-        
-        //defines the player as x = 50, y = 50, width = 20, height = 20
+
+        // defines the player as x = 50, y = 50, width = 20, height = 20
         player_rect = new Rect(50, 50, 20, 20);
 
-        //starts the game(loop)
+        // starts the game(loop)
         window.startGameLoop();
     }
 }

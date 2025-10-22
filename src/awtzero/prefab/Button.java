@@ -3,6 +3,7 @@ package awtzero.prefab;
 import java.awt.Color;
 
 import awtzero.Rect;
+import awtzero.RenderInstance;
 import awtzero.Screen;
 import java.awt.Font;
 
@@ -20,7 +21,7 @@ public class Button {
     private boolean click_blk;
     private int click_timer;
 
-    public Button(int x, int y, int width, int height, String text) {
+    public Button(int x, int y, int width, int height, String text, int fancy_touch) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -43,6 +44,11 @@ public class Button {
 
         click_blk = false;
         click_timer = 0;
+
+    }
+
+    public Button(int x, int y, int width, int height, String text) {
+        this(x, y, width, height, text, 0);
     }
 
     public void setColors(Color color1, Color color2, Color textColor) {
@@ -67,10 +73,10 @@ public class Button {
         this.borderwidth = borderwidth;
     }
 
-    public void draw(Screen screen, java.awt.Graphics g) {
-        screen.drawFilledRoundedRect(g, new Rect(x, y, width, height), color2, rx, ry);
-        screen.drawFilledRoundedRect(g, new Rect(x+borderwidth, y+borderwidth, width-(2 * borderwidth), height-(2 * borderwidth)), color1, rx, ry);
-        screen.drawText(g, text, x + (width / 2) - (text.length() * this.stringsize), y + (height / 2) + (stringsize * 5 / 3), textColor, this.font);
+    public void draw(Screen screen, RenderInstance g) {
+        g.drawFilledRoundedRect(new Rect(x, y, width, height), color2, rx, ry);
+        g.drawFilledRoundedRect(new Rect(x+borderwidth, y+borderwidth, width-(2 * borderwidth), height-(2 * borderwidth)), color1, rx, ry);
+        g.drawText(text, x + (width / 2) - (text.length() * this.stringsize), y + (height / 2) + (stringsize * 5 / 3), textColor, this.font);
     }
 
     public void draw(java.awt.Graphics g) {

@@ -12,7 +12,7 @@ public class Window {
 	public int FPS;
 	public Keyboard keyboard;
 	
-    private Consumer<Graphics> onDraw;
+    private Consumer<RenderInstance> onDraw;
     private Runnable onUpdate;
 
     private double fps = 0;  // latest calculated FPS
@@ -25,11 +25,13 @@ public class Window {
 			private static final long serialVersionUID = 6963058267354657407L;
 
 			@Override
-            public void paint(Graphics g) {
+            public void paint(Graphics graphics) {
                 if (onDraw != null) {
+                    RenderInstance g = new RenderInstance(graphics);
                     onDraw.accept(g);
                 }
             }
+
 			@Override
 		    public void update(Graphics g) {
 		        super.update(g);
@@ -76,7 +78,7 @@ public class Window {
     	return Math.round(d * temp) / temp;
     }
 
-    public void setOnDraw(Consumer<Graphics> onDraw) {
+    public void setOnDraw(Consumer<RenderInstance> onDraw) {
         this.onDraw = onDraw;
     }
     
