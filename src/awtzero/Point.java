@@ -21,7 +21,7 @@ public class Point {
     public int getY() {
     	return this.y;
     }
-    
+
     public int getDistanceTo(Point that) {
     	return (int) Math.sqrt(Math.pow(Math.abs(this.x - that.x), 2) + Math.pow(Math.abs(this.y - that.y), 2));
     }

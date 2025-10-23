@@ -8,6 +8,11 @@ public class Vector2 {
 		y = py;
 	}
 
+	public Vector2(Vector2 v) {
+		x = v.x;
+		y = v.y;
+	}
+
 	public Vector2(Point p) {
 		x = (double) p.x;
 		y = (double) p.y;
@@ -89,6 +94,25 @@ public class Vector2 {
 
 	public void setDirection_ip(double dir) {
 		fromMagnitudeDirection(this.getMagnitude(), dir);
+	}
+
+	public static Vector2 normalizeVector(Vector2 v) {
+		double mag = v.getMagnitude();
+		return new Vector2(v.x / mag, v.y / mag);
+	}
+
+	public Vector2 normalize() {
+		return normalizeVector(this);
+	}
+
+	public void normalize_ip() {
+		double mag = getMagnitude();
+		x /= mag;
+		y /= mag;
+	}
+
+	public Point asPoint() {
+		return new Point((int)x, (int) y);
 	}
 
 	@Override

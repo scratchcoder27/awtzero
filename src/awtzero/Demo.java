@@ -3,7 +3,6 @@ package awtzero;
 import awtzero.prefab.Button;
 import java.awt.Color;
 import java.awt.Font;
-// import java.awt.Graphics;
 
 public class Demo {
     public static Window window; // Make a static Window
@@ -37,7 +36,7 @@ public class Demo {
         g.drawText("Move with Arrow Keys", 200, 300, Color.WHITE, gamefont);
         g.drawText("Click to move towards mouse", 130, 400, Color.WHITE, gamefont);
 
-        g.drawFilledRect(player_rect, Color.GREEN);
+        g.drawFilledRect(player_rect, Color.RED);
 
         g.drawCircle(Mouse.getMousePos(), 5, Color.WHITE);
     }
