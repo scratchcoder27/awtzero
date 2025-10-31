@@ -3,6 +3,11 @@ package awtzero;
 
 import java.awt.event.KeyEvent;
 
+/**
+ * A large enum containing all the keys that can be used with AWTZero's Keyboard class.
+ * @see awtzero.Keyboard
+ * Example usage: {@code keyboard.isKeyDown(Key.LEFT);}
+ */
 public enum Key {
     LEFT(KeyEvent.VK_LEFT),
     RIGHT(KeyEvent.VK_RIGHT),

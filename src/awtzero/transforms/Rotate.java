@@ -8,8 +8,10 @@ import java.awt.image.BufferedImage;
 import awtzero.ImageWrapper;
 import awtzero.Point;
 
+/**
+ * A class providing static methods to rotate images.
+ */
 public class Rotate {
-
     private static BufferedImage toBufferedImage(java.awt.Image img) {
         if (img instanceof BufferedImage) {
             return (BufferedImage) img;
@@ -27,6 +29,12 @@ public class Rotate {
         return bimage;
     }
 
+    /**
+     * Rotate an image by specified number of degrees.
+     * @param img the {@link BufferedImage} to be rotated
+     * @param degrees the degrees to rotate the image by
+     * @return the rotated {@link BufferedImage}
+     */
     public static BufferedImage rotateDegrees(BufferedImage img, double degrees) {
 
         double rads = Math.toRadians(degrees);
@@ -61,17 +69,38 @@ public class Rotate {
         return rotated;
     }
 
+    /**
+     * Rotate an {@link Image} by a specified number of degrees.
+     * @param img the AWT {@link Image} to be rotated
+     * @param degrees the number of degrees to rotate the image by
+     * @return the rotated {@link Image}
+     */
     public static Image rotateDegrees(java.awt.Image img, double degrees) {
         BufferedImage bimg = toBufferedImage(img);
         return rotateDegrees(bimg, degrees);
     }
 
+    /**
+     * Rotate an {@link Image} so that it faces towards a specified point.
+     * NOTE: It is assumed that the image is initially facing right (0 degrees).
+     * <p>WARNING: This method uses {@link Math#atan2(double, double)} which might be slow for real-time applications.</p>
+     * @param img the AWT {@link Image} to be rotated
+     * @param me the {@link Point} representing the current position
+     * @param toward the {@link Point} representing the target position
+     * @return the rotated {@link Image}
+     */
     public static Image rotateTowards(java.awt.Image img, Point me, Point toward) {
         BufferedImage bimg = toBufferedImage(img);
         double degrees = Math.toDegrees(Math.atan2(toward.y - me.y, toward.x - me.x));
         return rotateDegrees(bimg, degrees);
     }
 
+    /**
+     * Rotate an {@link ImageWrapper} by a specified number of degrees.
+     * @param img the {@link ImageWrapper} to be rotated
+     * @param degrees the number of degrees to rotate the image by
+     * @return the rotated {@link ImageWrapper}
+     */
     public static ImageWrapper rotateDegrees(ImageWrapper img, double degrees) {
         BufferedImage bimg = toBufferedImage(img.image);
         BufferedImage rotated = rotateDegrees(bimg, degrees);

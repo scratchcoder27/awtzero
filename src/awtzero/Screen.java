@@ -3,15 +3,21 @@ package awtzero;
 
 import java.awt.*;
 
+/**
+ * Provides a drawable screen area using double buffering to reduce flickering.
+ */
 public class Screen extends Canvas {
     private Image offscreenImage;
     private Graphics offscreenGraphics;
     private Rect screenrect;
 	
 	public Screen() {
-        
 	}
 	
+    /**
+     * Update the screen (flip the buffers)
+     * @param g The Graphics context to draw onto the screen
+     */
 	public void update(Graphics g) {
         if (offscreenImage == null ||
             offscreenImage.getWidth(null) != getWidth() ||
@@ -31,6 +37,11 @@ public class Screen extends Canvas {
         g.drawImage(offscreenImage, 0, 0, null);
     }
     
+    /**
+     * Get the Rect representing the screen dimensions
+     * @return The Rect of the screen
+     * @see Rect
+     */
     public Rect getScreenRect() {
     	if (screenrect == null) {
     		screenrect = new Rect(0, 0, getWidth(), getHeight());
