@@ -4,6 +4,9 @@ import awtzero.prefab.Button;
 import java.awt.Color;
 import java.awt.Font;
 
+/**
+ * This is a demo of AWTZero features including keyboard and mouse input, which also provides an example.
+ */
 public class Demo {
     public static Window window; // Make a static Window
     public static Keyboard keyboard; // a static Keyboard
