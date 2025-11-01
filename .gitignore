@@ -1,0 +1,16 @@
+# === Java build output ===
+bin/*
+*.class
+*.jar
+
+# === Eclipse project files ===
+.settings/*
+.classpath
+.project
+
+# === VS Code workspace settings ===
+.vscode/
+
+# === OS-specific files ===
+.DS_Store
+Thumbs.db
