@@ -1,6 +1,8 @@
 package awtzero;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -11,6 +13,10 @@ import java.util.HashMap;
 
 public class ImageWrapper {
     private static final HashMap<String, Image> cache = new HashMap<>();
+
+    private class ImageObserverComponent extends Component {
+        //stub
+    }
 
     /**  Stores the width of the image*/
     public int width;
@@ -24,26 +30,32 @@ public class ImageWrapper {
     /**
      * Constructor to create an ImageWrapper from a file path. (loads the file)
      * @param path The file path of the image to load.
-     * @param observer The Component observing the image loading. (recommended, pass the Window or Screen)
+     * @param observer The Component observing the image loading. 
+     * <strong> NOTE: The Component must be fully loaded </strong>
+     * @throws IOException If the component was not loaded fully when used
      * @see ImageWrapper#loadImage(String)
      */
-    public ImageWrapper(String path, Component observer) {
+    public ImageWrapper(String path, Component observer) throws IOException {
         this.observer = observer;
-        this.image = loadImage(observer, path);
-        this.width = this.image.getWidth(observer);
-        this.height = this.image.getHeight(observer);
+        try {
+            this.image = loadImage(observer, path);
+            this.width = this.image.getWidth(observer);
+            this.height = this.image.getHeight(observer);
+        } catch (NullPointerException e) {
+            throw new IOException("The observer component was not loaded");
+        }
     }
     
     /**
-     * Constructor to create an ImageWrapper from a file path without an observer, which is usually not recommended. (loads the file)
+     * Constructor to create an ImageWrapper from a file path without an observer. (loads the file)
      * @param path The file path of the image to load.
      * @see ImageWrapper#loadImage(String, Component)
      */
     public ImageWrapper(String path) {
-        this.observer = null;
-        this.image = loadImage(null, path);
-        this.width = this.image.getWidth(null);
-        this.height = this.image.getHeight(null);
+        this.observer = new ImageObserverComponent();
+        this.image = loadImage(observer, path);
+        this.width = this.image.getWidth(observer);
+        this.height = this.image.getHeight(observer);
     }
     
     /**
@@ -60,9 +72,9 @@ public class ImageWrapper {
     }
     
     /**
-     * Constructor to construct an ImageWrapper from an existing AWT Image without an observer, which is usually not recommended.
+     * Constructor to construct an ImageWrapper from an existing AWT Image without an observer
      * @param img The AWT Image to wrap.
-     * @see #loadImage(Image, Component)
+     * @see #loadImage(String)
      */
     public ImageWrapper(Image img) {
     	this.image = img;
@@ -82,19 +94,26 @@ public class ImageWrapper {
             return cache.get(path);
         }
 
-        Image img = Toolkit.getDefaultToolkit().getImage(path);
-        MediaTracker tracker = new MediaTracker(observer);
-        tracker.addImage(img, 0);
-
         try {
-            tracker.waitForID(0);
-        } catch (InterruptedException e) {
-            System.err.println("Image loading interrupted: " + path);
-        }
+            Image img;
+            java.net.URL resource = ImageWrapper.class.getResource(path);
+            if (resource != null) {
+                img = javax.imageio.ImageIO.read(resource);
+            } else {
+                img = javax.imageio.ImageIO.read(new java.io.File(path));
+            }
 
-        cache.put(path, img);
-        return img;
+            if (img == null) throw new IOException("ImageIO.read returned null for " + path);
+
+            cache.put(path, img);
+            return img;
+        } catch (IOException e) {
+            System.err.println("Failed to load image: " + path + " (" + e.getMessage() + ")");
+            return new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+        }
     }
+
+
 
     /**
      * returns the height of the image in pixels.

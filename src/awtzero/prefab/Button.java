@@ -11,7 +11,7 @@ import java.awt.Font;
  * A simple Button prefab for AWTZero
  * It consists of a rounded rectangle with a border with text on it
  * with hover and click interactivity
- * <strong><p> The button is rudimentary and may not work perfectly in all cases. Use at your own risk. You are advised to make your own class for production use </strong></p>
+ * <p><strong> The button is rudimentary and may not work perfectly in all cases. Use at your own risk. You are advised to make your own class for production use </strong></p>
  * <p>Usage:
  * <p> {@link #interact()} is called continuously while the button is clicked
  * <p> {@link #interactOnce()} is called once per click
@@ -82,7 +82,7 @@ public class Button {
      * Sets the colors of the button
      * @param color1 the inner color
      * @param color2 the border color
-     * @param textColor
+     * @param textColor the color of the Text
      */
     public void setColors(Color color1, Color color2, Color textColor) {
         this.color1 = color1;
@@ -123,8 +123,8 @@ public class Button {
     /**
      * Draws the button on the given {@link Screen} using the given {@link RenderInstance}
      * <p> Should be called each frame to render the button
-     * @param screen
-     * @param g
+     * @param screen The {@link Screen} to draw on
+     * @param g The {@link RenderInstance} to use for drawing
      */
     public void draw(Screen screen, RenderInstance g) {
         g.drawFilledRoundedRect(new Rect(x, y, width, height), color2, rx, ry);

@@ -1,4 +1,5 @@
 :root {
+    --block-font-family: 'Sans Serif', 'DejaVu Serif', Georgia, "Times New Roman", Times, serif;
     --body-text-color: #e0e0e3;
     --block-text-color: #e6e7ef;
     --body-background-color: #404040;

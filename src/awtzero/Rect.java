@@ -11,7 +11,7 @@ import java.util.*;
  * <p>This class provides utility methods for manipulation, collision detection,
  * and querying various rectangular properties.</p>
  * <p>It is (almost) a direct adaptation of Pygame's Rect class to Java.</p>
- * @link https://www.pygame.org/docs/ref/rect.html
+ * {@link https://www.pygame.org/docs/ref/rect.html}
  */
 
 public class Rect {
