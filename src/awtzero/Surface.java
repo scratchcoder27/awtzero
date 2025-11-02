@@ -503,4 +503,25 @@ public class Surface {
         g.fillScreen(screen, color);
         this.closeGraphics();
     }
+
+    /**
+     * Sets the pixel at the specified coordinates to the given color.
+     * <p> This method directly modifies the underlying image of the Surface, without using a {@link RenderInstance} object.</p>
+     * @param x     the x coordinate of the pixel
+     * @param y     the y coordinate of the pixel
+     * @param color the {@link Color} to set the pixel to
+     */
+    public void setPixel(int x, int y, Color color) {
+        this.image.setRGB(x, y, color.getRGB());
+    }
+
+    /**
+     * Sets the pixel at the specified coordinates to the given color.
+     * <p> This method directly modifies the underlying image of the Surface, without using a {@link RenderInstance} object.</p>
+     * @param point the {@link Point} representing the pixel coordinates
+     * @param color the {@link Color} to set the pixel to
+     */
+    public void setPixel(Point p, Color color) {
+        setPixel(p.x, p.y, color);
+    }
 }
