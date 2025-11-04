@@ -290,7 +290,7 @@ public class Vector2 {
      * @return A new {@link Point} object.
      */
     public Point asPoint() {
-        return new Point((int) Math.round(y), (int) Math.round(y));
+        return new Point((int) Math.round(x), (int) Math.round(y));
     }
 
     /**
