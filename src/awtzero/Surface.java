@@ -166,6 +166,22 @@ public class Surface {
         g.blit(img.image, p);
         this.closeGraphics();
     }
+
+    /**
+     * Draws a {@link Surface} to the current Surface
+     * @param surf The surface to draw
+     * @param p The point to draw at
+     */
+    public void blit(Surface surf, Point p) {
+        RenderInstance g = this.getGraphics();
+        try {
+            g.blit(surf.image, p);
+        } catch (Exception e) {
+            //pass
+        } finally {
+            this.closeGraphics();
+        }
+    }
     
     /**
      * Draws an image at the specified rectangle position and size.
@@ -228,19 +244,6 @@ public class Surface {
     public void blit(Image img, Rect rect) {
         RenderInstance g = this.getGraphics();
         g.blit(img, rect);
-        this.closeGraphics();
-    }
-    
-    /**
-     * Clears the entire screen by filling it with black color.
-     * <p>This method acquires a rendering context, calls the operation on it, and disposes of the context.</p>
-     *
-     * @param screen the {@link Canvas} representing the screen to clear
-     * @see awtzero.RenderInstance#clearScreen(Canvas)
-     */
-    public void clearScreen(Canvas screen) {
-        RenderInstance g = this.getGraphics();
-        g.clearScreen(screen);
         this.closeGraphics();
     }
     
@@ -445,62 +448,14 @@ public class Surface {
     }
     
     /**
-     * Fills the entire screen with a color defined by floating-point RGB components.
+     * Fills the entire surface with the specified color.
      * <p>This method acquires a rendering context, calls the operation on it, and disposes of the context.</p>
-     *
-     * @param screen the {@link Canvas} representing the screen
-     * @param red    red component (0.0–1.0)
-     * @param green  green component (0.0–1.0)
-     * @param blue   blue component (0.0–1.0)
-     * @see awtzero.RenderInstance#fillScreen(Canvas, float, float, float)
-     */
-    public void fillScreen(Canvas screen, float red, float green, float blue) {
-        RenderInstance g = this.getGraphics();
-        g.fillScreen(screen, red, green, blue);
-        this.closeGraphics();
-    }
-    
-    /**
-     * Fills the entire screen with a single integer color value.
-     * <p>This method acquires a rendering context, calls the operation on it, and disposes of the context.</p>
-     *
-     * @param screen the {@link Canvas} representing the screen
-     * @param color  an integer RGB color value
-     * @see awtzero.RenderInstance#fillScreen(Canvas, int)
-     */
-    public void fillScreen(Canvas screen, int color) {
-        RenderInstance g = this.getGraphics();
-        g.fillScreen(screen, color);
-        this.closeGraphics();
-    }
-    
-    /**
-     * Fills the entire screen with a color defined by RGB components.
-     * <p>This method acquires a rendering context, calls the operation on it, and disposes of the context.</p>
-     *
-     * @param screen the {@link Canvas} representing the screen
-     * @param red    red component (0–255)
-     * @param green  green component (0–255)
-     * @param blue   blue component (0–255)
-     * @see awtzero.RenderInstance#fillScreen(Canvas, int, int, int)
-     */
-    public void fillScreen(Canvas screen, int red, int green, int blue) {
-        RenderInstance g = this.getGraphics();
-        g.fillScreen(screen, red, green, blue);
-        this.closeGraphics();
-    }
-    
-    /**
-     * Fills the entire screen with the specified color.
-     * <p>This method acquires a rendering context, calls the operation on it, and disposes of the context.</p>
-     *
-     * @param screen the {@link Canvas} representing the screen
      * @param color  the {@link Color} to fill the screen with
      * @see awtzero.RenderInstance#fillScreen(Canvas, Color)
      */
-    public void fillScreen(Canvas screen, Color color) {
+    public void fill(Color color) {
         RenderInstance g = this.getGraphics();
-        g.fillScreen(screen, color);
+        g.drawFilledRect(new Rect(0, 0, this.getWidth(), this.getHeight()), color);
         this.closeGraphics();
     }
 

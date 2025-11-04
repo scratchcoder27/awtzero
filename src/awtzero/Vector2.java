@@ -252,13 +252,45 @@ public class Vector2 {
     }
 
     /**
+     * Multiply the components of the vector by a scalar
+     * @param scalar the scalar value
+     */
+    public void multiplyScalar_ip(double scalar) {
+        this.x *= scalar;
+        this.y *= scalar;
+    }
+
+    /**
+     * Multiply the components of the vector by a scalar and returns it without changing the original 
+     * @param scalar the scalar value
+     * @return The vector with the multiplication applied
+     */
+    public Vector2 multiplyScalar(double scalar) {
+        Vector2 v = new Vector2(this);
+        v.x *= scalar;
+        v.y *= scalar;
+        return v;
+    }
+
+
+    /**
      * Converts this Vector2 to an AWT {@link Point} by casting the double components to integers.
      * <p><strong> NOTE: This results in a loss of precision. </strong></p>
      *
      * @return A new {@link Point} object.
      */
-    public Point asPoint() {
+    public Point asPointFast() {
         return new Point((int)x, (int) y);
+    }
+
+    /**
+     * Converts this Vector2 to an AWT {@link Point} by rounding the double components
+     * <p><strong> NOTE: This results in a loss of precision. </strong></p>
+     *
+     * @return A new {@link Point} object.
+     */
+    public Point asPoint() {
+        return new Point((int) Math.round(y), (int) Math.round(y));
     }
 
     /**

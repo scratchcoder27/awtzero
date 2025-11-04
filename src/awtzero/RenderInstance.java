@@ -98,6 +98,15 @@ public class RenderInstance {
     }
 
     /**
+     * Draws a {@link Surface} to the specified point
+     * @param surf The surface to draw
+     * @param p the {@link Point} representing the image position
+     */
+    public void blit(Surface surf, Point p) {
+       blit(surf.image, p);
+    }
+
+    /**
      * Draws an image at the specified point with an image observer.
      *
      * @param img       the {@link Image} to draw
