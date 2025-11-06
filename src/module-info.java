@@ -18,6 +18,12 @@
  * <li>{@link awtzero.Vector2}: A 2D vector class for mathematical operations.</li>
  * <li>{@link awtzero.ImageWrapper}: A utility class for image loading and manipulation.</li>
  * </ul>
+ * 
+ * Some important notes:
+ * <ul>
+ * <li> (0, 0) refers to the top left. Therefore, negative y refers towards the top, and negative x refers to the left
+ * <li> For operations involving {@link Vector2}, <strong> -90 degrees refers to the top, 0 to the right, 90 degrees to the bottom, and 180 to the left (clockwise)
+ * </ul>
  *
  * This library is inspired by pygame and aims to provide a familiar and easy-to-use API
  * for developers looking to create graphics applications in Java using AWT.
