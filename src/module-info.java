@@ -22,7 +22,7 @@
  * Some important notes:
  * <ul>
  * <li> (0, 0) refers to the top left. Therefore, negative y refers towards the top, and negative x refers to the left
- * <li> For operations involving {@link Vector2}, <strong> -90 degrees refers to the top, 0 to the right, 90 degrees to the bottom, and 180 to the left (clockwise)
+ * <li> For operations involving {@link awtzero.Vector2}, <strong> -90 degrees refers to the top, 0 to the right, 90 degrees to the bottom, and 180 to the left (clockwise)</strong>
  * </ul>
  *
  * This library is inspired by pygame and aims to provide a familiar and easy-to-use API
