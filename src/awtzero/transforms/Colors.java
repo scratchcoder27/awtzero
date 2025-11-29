@@ -46,20 +46,38 @@ public class Colors {
 
         int[] pixels = ((java.awt.image.DataBufferInt) bi.getRaster().getDataBuffer()).getData();
 
-        // Use a parallel stream over the array indices
+        // Store dimensions in final variables for the lambda
+        final int w = width;
+        final int h = height;
+        
+        // We use (width - 1) and (height - 1) as divisors to ensure
+        // the UV coordinates span the full 0.0 to 1.0 range.
+        final float invWidth = 1.0f / (w - 1);
+        final float invHeight = 1.0f / (h - 1);
+
         IntStream.range(0, pixels.length).parallel().forEach(i -> {
+            
+            // Calculate (x, y) and (u, v) from the 1D index 'i'
+            int x = i % w;
+            int y = i / w;
+            float u = (float)x * invWidth;
+            float v = (float)y * invHeight;
             
             int rgba = pixels[i];
 
+            // 1. Unpack ARGB and UV into the container
             PixelColor pixelContainer = new PixelColor(
                 (rgba >>> 24) & 0xFF,
                 (rgba >>> 16) & 0xFF,
                 (rgba >>> 8) & 0xFF,
-                rgba & 0xFF
+                rgba & 0xFF,
+                u, v
             );
 
+            // 2. Run the user's "shader"
             shader.accept(pixelContainer);
 
+            // 3. Pack the modified vals back into the array
             pixels[i] = ((pixelContainer.a & 0xFF) << 24) |
                         ((pixelContainer.r & 0xFF) << 16) |
                         ((pixelContainer.g & 0xFF) << 8)  |

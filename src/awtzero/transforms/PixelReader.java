@@ -51,7 +51,23 @@ public class PixelReader {
                 (color >>> 24) & 0xFF,
                 (color >>> 16) & 0xFF,
                 (color >>> 8) & 0xFF,
-                color & 0xFF
+                color & 0xFF,
+                (float)safeX / (width - 1),
+                (float)safeY / (height - 1)
         );
+    }
+
+    /**
+     * @return The total width of the source image.
+     */
+    public int getWidth() {
+        return this.width;
+    }
+    
+    /**
+     * @return The total height of the source image.
+     */
+    public int getHeight() {
+        return this.height;
     }
 }
