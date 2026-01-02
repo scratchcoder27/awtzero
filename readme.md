@@ -6,9 +6,9 @@
 <h5>The project is heavily inspired by pygame and pygame-zero on python. Javadoc is available, either by running javadoc locally, or at https://scratchcoder27.github.io/awtzero/awtzero/module-summary.html </h5>
 
 ## Setting up the library
-SJGL is packaged into one .jar file: ```SJGL-{version}.jar```. Head to the release page and install the latest .jar.
-1. Launch your preferred IDE (Eclipse IDE is recommended)
-2. Create a new Java Project and set the .jar file in the ```Build Path > Classpath``
+AWTZero is packaged into one .jar file: ```awtzero.jar```. Head to the release page and install the latest .jar.
+1. Launch your preferred IDE (for example Eclipse, Jetbrains, VS Code, etc.)
+2. Create a new Java Project and set the .jar file in `Build Path > Classpath`
 
 ## QuickStart:
 Just copy and paste this code to create a blank window:
