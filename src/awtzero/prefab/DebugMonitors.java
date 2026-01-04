@@ -171,10 +171,10 @@ class DebugMonitor {
             }
         }
 
-        if (touching && keyboard.isKeyDown(Key.E)) {
-            ConfigDialog configScreen = new ConfigDialog(this.window.frame, this);
-            configScreen.setVisible(true);
-        }
+        // if (touching && keyboard.isKeyDown(Key.E)) {
+        //     ConfigDialog configScreen = new ConfigDialog(this.window.frame, this);
+        //     configScreen.setVisible(true);
+        // }
 
         if ((!touchingSlider) && touching) {
             this.isBeingDragged = true;
@@ -253,4 +253,6 @@ public class DebugMonitors {
             return -1;
         }
     }
+
+    
 }
