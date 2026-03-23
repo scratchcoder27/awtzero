@@ -103,30 +103,22 @@ public class Colors {
         int width = source.getWidth(null);
         int height = source.getHeight(null);
 
-        // 1. Create the destination image
         BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = bi.createGraphics();
         g.drawImage(source, 0, 0, null);
         g.dispose();
 
-        // 2. Get the *output* array (for writing)
         int[] outputPixels = ((java.awt.image.DataBufferInt) bi.getRaster().getDataBuffer()).getData();
 
-        // 3. Create a *read-only copy* of the original pixels (for reading)
         int[] inputPixels = outputPixels.clone();
 
-        // 4. Create the PixelReader helper
         PixelReader reader = new PixelReader(inputPixels, width, height);
 
-        // 5. Run the shader in parallel for each row
         IntStream.range(0, height).parallel().forEach(y -> {
-            // Inner loop for each pixel in the row
             for (int x = 0; x < width; x++) {
                 
-                // 6. Run the user's shader to get the new color
                 int newColor = shader.compute(x, y, reader);
 
-                // 7. Write the result to the *output* array
                 outputPixels[y * width + x] = newColor;
             }
         });

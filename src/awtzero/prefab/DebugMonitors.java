@@ -254,5 +254,38 @@ public class DebugMonitors {
         }
     }
 
-    
+    public static void setValue(String name, int value) {
+        DebugMonitor m = monitors.get(name);
+        if (m != null) {
+            m.value = value;
+        }
+    }
+
+    public static void hideMonitor(String name) {
+        DebugMonitor m = monitors.get(name);
+        if (m != null) {
+            m.hidden = true;
+        }
+    }
+
+    public static void showMonitor(String name) {
+        DebugMonitor m = monitors.get(name);
+        if (m != null) {
+            m.hidden = false;
+        }
+    }
+
+    public static void setMinValue(String name, int min) {
+        DebugMonitor m = monitors.get(name);
+        if (m != null) {
+            m.minValue = min;
+        }
+    }
+
+    public static void setMaxValue(String name, int max) {
+        DebugMonitor m = monitors.get(name);
+        if (m != null) {
+            m.maxValue = max;
+        }
+    }    
 }

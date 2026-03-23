@@ -48,4 +48,16 @@ public class Screen extends Canvas {
     	}
     	return this.screenrect;
     }
+
+    /** Get immediate (offscreen) surface
+     *  @return A Surface representing the offscreen buffer
+     *  @see Surface
+     */
+    public Surface getImmediateSurface() {
+        if (offscreenGraphics == null) {
+            offscreenImage = createImage(getWidth(), getHeight());
+            offscreenGraphics = offscreenImage.getGraphics();
+        }
+        return new Surface(offscreenImage);
+    }
 }
