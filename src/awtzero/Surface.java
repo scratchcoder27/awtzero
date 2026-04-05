@@ -78,6 +78,10 @@ public class Surface {
         return this.graphics;
     }
 
+    /**
+     * Disposes of the RenderInstance graphics context if it exists, and sets it to null.
+     * <p> This should be called when done with drawing operations to free up system resources.
+     */
     public void closeGraphics() {
         if (this.graphics == null) {
             return;

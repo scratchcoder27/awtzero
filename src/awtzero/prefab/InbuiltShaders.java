@@ -56,6 +56,7 @@ public class InbuiltShaders {
     // ===                 POINT (PIXEL) SHADERS                          ===
     // ===    (For use with applyPixelShader(Image, Consumer<PixelColor>))  ===
     // ========================================================================
+    // yes, I did the docs for this class with AI (the rest are mine, though)
 
     /**
      * A point shader that inverts the image's colors (like a photo negative).
